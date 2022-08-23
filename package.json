@@ -1,0 +1,15 @@
+{
+  "dependencies": {
+    "microsoft-cognitiveservices-speech-sdk": "^1.22.0"
+  },
+  "name": "speechservices",
+  "version": "1.0.0",
+  "description": "TorecogniseSpeech",
+  "main": "SpeechRecognition.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
+}
