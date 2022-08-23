@@ -68,6 +68,7 @@
           return;
         }
         var speechConfig = SpeechSDK.SpeechConfig.fromSubscription(subscriptionKey.value, serviceRegion.value);
+        
 
         speechConfig.speechRecognitionLanguage = "en-US";
         var audioConfig  = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
