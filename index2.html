@@ -31,7 +31,7 @@
           <option value="pl-PL">Polish - PL</option>
           <option value="pt-BR">Portuguese - BR</option>
           <option value="ru-RU">Russian - RU</option>
-          <option value="sv-SE">Swedish - SE</option>
+          <option value="te-IN">Telugu - SE</option>
           <option value="zh-CN">Chinese - Simplified</option>
         </select></td>
       </tr>
@@ -50,7 +50,7 @@
           <option value="ko">Korean</option>
           <option value="pl">Polish</option>
           <option value="pt">Portuguese</option>
-          <option value="ru">Russian</option>
+          <option value="te">Telugu</option>
           <option value="sv">Swedish</option>
           <option value="zh-Hans">Chinese - Simplified</option>
         </select></td>
@@ -98,6 +98,8 @@
   <script src="https://aka.ms/csspeech/jsbrowserpackageraw"></script>
 
   <!-- Speech SDK USAGE -->
+  <script src="SpeechSDK-JavaScript-1.23.0/microsoft.cognitiveservices.speech.sdk.bundle.js">
+  </script>
   <script>
     // status fields and start button in UI
     var resultsDivs;
@@ -137,10 +139,17 @@
           startRecognizeOnceAsyncButton.disabled = false;
           return;
         }
-        var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription(subscriptionKey.value, serviceRegion.value);
-        var autoDetectSourceLanguageConfig = SpeechSDK.AutoDetectSourceLanguageConfig.fromLanguages([("en-US", "zh-CN","hi-IN"]);
-
-        speechConfig.speechRecognitionLanguage = autoDetectSourceLanguageConfig;
+        var languageDetectionResult,detectedLanguage;
+        var speechConfig = SpeechSDK.SpeechTranslationConfig.fromSubscription(subscriptionKey, serviceRegion);
+        /*var autoDetectSourceLanguageConfig = SpeechSDK.AutoDetectSourceLanguageConfig.fromLanguages([("en-US", "zh-CN","hi-IN")]);
+        var autoDetectSourceLanguageConfig = SpeechSDK.AutoDetectSourceLanguageConfig.fromLanguages(["en-US", "de-DE"]);
+        var speechRecognizer = SpeechSDK.SpeechRecognizer.FromConfig(speechConfig, autoDetectSourceLanguageConfig, audioConfig);
+        speechRecognizer.recognizeOnceAsync(
+          function (result) {
+                  languageDetectionResult = SpeechSDK.AutoDetectSourceLanguageResult.fromResult(result);
+                  detectedLanguage = languageDetectionResult.language;
+          });*/
+        speechConfig.speechRecognitionLanguage = languageSourceOptions.value;
         let languageKeys = {};
         languageTargetOptions.forEach(function(langElem, index){
           let language = langElem.value;
@@ -150,6 +159,7 @@
 
         var audioConfig  = SpeechSDK.AudioConfig.fromDefaultMicrophoneInput();
         recognizer = new SpeechSDK.TranslationRecognizer(speechConfig, audioConfig);
+        
 
         recognizer.recognizeOnceAsync(
           function (result) {
